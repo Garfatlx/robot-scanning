@@ -1,0 +1,22 @@
+Latest /tf message:
+  Frame: upper_arm_link -> forearm_link
+    Translation: x=-0.425, y=0.0, z=0.0
+    Rotation: x=0.0, y=0.0, z=0.741781948999542, w=0.670641141101887
+  Frame: shoulder_link -> upper_arm_link
+    Translation: x=0.0, y=0.0, z=0.0
+    Rotation: x=0.6125476517682962, y=0.35324973378008084, z=-0.3532497337076281, w=0.6125476516426605
+  Frame: base_link_inertia -> shoulder_link
+    Translation: x=0.0, y=0.0, z=0.1625
+    Rotation: x=0.0, y=0.0, z=0.0022319909279421768, w=0.9999975091051465
+  Frame: forearm_link -> wrist_1_link
+    Translation: x=-0.3922, y=0.0, z=0.1333
+    Rotation: x=0.0, y=0.0, z=-0.3005105620637186, w=0.9537784869078082
+  Frame: wrist_1_link -> wrist_2_link
+    Translation: x=0.0, y=-0.0997, z=-2.044881182297852e-11
+    Rotation: x=0.7066171272562765, y=-0.026310370020942216, z=0.026310370015545866, w=0.7066171271113468
+  Frame: wrist_2_link -> wrist_3_link
+    Translation: x=0.0, y=0.0996, z=-2.042830148012698e-11
+    Rotation: x=-0.7071040711524622, y=0.001957718612431903, z=0.0019577186120302813, w=0.7071040710074327
+
+Latest /joint_states message:
+  No /joint_states message received yet.

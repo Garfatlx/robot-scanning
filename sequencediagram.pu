@@ -1,0 +1,57 @@
+@startuml
+actor "User" as user
+participant "Main" as main
+participant "ScannerNode" as node
+participant "LiDAR" as lidar
+participant "ROS2" as ros2
+
+user -> main: Run main()
+main -> ros2: rclpy.init()
+main -> node: Create ScannerNode
+node -> ros2: Subscribe to /tf topic
+
+loop for index = 1 to total_steps
+  main -> lidar: listen_to_lidar(index)
+  lidar -> lidar: Receive segments
+  alt Valid frame number
+    lidar -> main: Store segments in frame_scanning_data[index]
+  else
+    lidar -> main: Log error
+  end
+  lidar -> lidar: Close connection
+
+  main -> node: listen_to_robot_position(index)
+  node -> ros2: spin_once (wait for /tf)
+  ros2 -> node: Publish robot position
+  alt Position received
+    node -> main: Store position in frame_robot_position_data[index]
+    node -> main: Log completion
+  else
+    node -> main: Log failure
+  end
+
+  main -> ros2: spin_once
+  main -> main: Sleep (step_size / 1000.0)
+end loop
+
+main -> node: Destroy node
+main -> ros2: rclpy.shutdown()
+
+loop for index = 1 to total_steps
+  alt Data exists for index
+    main -> main: compute_point_cloud_per_frame()
+    main -> main: Append points to array
+  else
+    main -> main: Skip index
+  end
+end loop
+
+alt Points array not empty
+  main -> main: visualize_point_cloud()
+else
+  main -> main: Log "No points collected"
+end
+
+main --> user: End
+
+@enduml
